@@ -8,6 +8,21 @@ public class MyLinkedList {
         return head;
     }
 
+    public void revert(){
+        if (head != null && head.getNext() != null)
+            revert(head.getNext(), head);
+    }
+
+    private void revert(Node current, Node prev){
+        if (current.getNext() == null){
+            head = current;
+        } else {
+            revert(current.getNext(), current);
+        }
+        current.setNext(prev);
+        prev.setNext(null);
+    }
+
     public void addFirst(int value){
         Node node = new Node(value);
         if (head != null)
@@ -57,5 +72,14 @@ public class MyLinkedList {
             node = node.getNext();
         }
         head = null;
+    }
+
+    public void print(){
+        Node node = head;
+        while (node != null){
+            System.out.printf("%d ", node.getValue());
+            node = node.getNext();
+        }
+        System.out.println();
     }
 }
